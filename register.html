@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Student Technology and Innovation Conference</title>
+    <style>
+        /* ========== RESET & BASE ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f6f9;
+            color: #1e2a3a;
+            line-height: 1.6;
+        }
+
+        /* ========== NAVBAR ========== */
+        .navbar {
+            background-color: #0a2540;
+            padding: 1rem 0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 10;
+        }
+
+        .nav-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-brand {
+            color: #c9a227;
+            font-size: 1.4rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 500;
+            padding-bottom: 4px;
+            border-bottom: 2px solid transparent;
+            transition: border-color 0.2s, color 0.2s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            border-bottom-color: #c9a227;
+            color: #c9a227;
+        }
+
+        /* ========== PAGE HEADER ========== */
+        .page-header {
+            background: linear-gradient(135deg, #0a2540 0%, #1a3a5c 100%);
+            color: #ffffff;
+            padding: 3rem 1.5rem;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+            color: #ffffff;
+        }
+
+        .page-header p {
+            font-size: 1.05rem;
+            color: #f0c75e;
+            font-weight: 500;
+        }
+
+        /* ========== CONTAINER ========== */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2.5rem 1.5rem;
+        }
+
+        /* ========== FORM STYLES ========== */
+        fieldset.form-section {
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            background: #ffffff;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+        }
+
+        fieldset.form-section legend {
+            font-weight: 700;
+            color: #0a2540;
+            padding: 0 0.6rem;
+            font-size: 1.1rem;
+            letter-spacing: 0.3px;
+        }
+
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.35rem;
+            color: #2d3748;
+            font-size: 0.95rem;
+        }
+
+        .required {
+            color: #b91c1c;
+            font-weight: 700;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 0.7rem 0.85rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-family: inherit;
+            background: #ffffff;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #c9a227;
+            box-shadow: 0 0 0 3px rgba(201, 162, 39, 0.15);
+        }
+
+        .error-message {
+            display: block;
+            color: #b91c1c;
+            font-size: 0.85rem;
+            margin-top: 0.3rem;
+            min-height: 1.1rem;
+            font-weight: 500;
+        }
+
+        .hint {
+            display: block;
+            color: #64748b;
+            font-size: 0.85rem;
+            margin-top: 0.25rem;
+        }
+
+        .package-message {
+            margin-top: 0.8rem;
+            padding: 0.7rem 1rem;
+            background: #f0f7ff;
+            border-left: 4px solid #1a3a5c;
+            border-radius: 4px;
+            font-weight: 500;
+            color: #0a2540;
+            font-size: 0.95rem;
+        }
+
+        /* ========== FEE SUMMARY ========== */
+        .fee-summary {
+            background: #eef2f7;
+            border: 2px solid #0a2540;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .fee-summary h3 {
+            color: #0a2540;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #cbd5e1;
+        }
+
+        .fee-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            font-size: 1rem;
+            border-bottom: 1px dashed #d1d5db;
+        }
+
+        .fee-row:last-child {
+            border-bottom: none;
+        }
+
+        .subtotal-row {
+            font-weight: 700;
+            color: #0a2540;
+            border-top: 2px solid #0a2540;
+            border-bottom: none;
+            margin-top: 0.4rem;
+            padding-top: 0.7rem;
+        }
+
+        .discount-row {
+            color: #15803d;
+            font-weight: 700;
+            border-bottom: none;
+        }
+
+        .total-row {
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: #0a2540;
+            border-top: 3px solid #c9a227;
+            border-bottom: none;
+            margin-top: 0.5rem;
+            padding-top: 0.8rem;
+        }
+
+        /* ========== FORM ACTIONS ========== */
+        .form-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.9rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.1s, box-shadow 0.2s;
+            text-align: center;
+        }
+
+        .btn:active { transform: scale(0.98); }
+
+        .btn-primary {
+            background-color: #c9a227;
+            color: #0a2540;
+            box-shadow: 0 4px 14px rgba(201, 162, 39, 0.4);
+        }
+
+        .btn-primary:hover {
+            background-color: #b8911f;
+            box-shadow: 0 6px 18px rgba(201, 162, 39, 0.55);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: #0a2540;
+            border: 2px solid #0a2540;
+        }
+
+        .btn-secondary:hover {
+            background-color: #0a2540;
+            color: #ffffff;
+        }
+
+        .btn-large {
+            padding: 0.95rem 2.4rem;
+            font-size: 1.05rem;
+        }
+
+        /* ========== BACK HOME BUTTON ========== */
+        .back-home-wrapper {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #cbd5e1;
+        }
+
+        .back-home-wrapper .btn {
+            min-width: 220px;
+        }
+
+        /* Gold themed back-home button (matches the theme accent) */
+        .btn-gold {
+            background-color: #c9a227;
+            color: #0a2540;
+            box-shadow: 0 4px 14px rgba(201, 162, 39, 0.4);
+        }
+
+        .btn-gold:hover {
+            background-color: #b8911f;
+            box-shadow: 0 6px 18px rgba(201, 162, 39, 0.55);
+        }
+
+        /* ========== FOOTER ========== */
+        .footer {
+            background: #0a2540;
+            color: #ffffff;
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 3rem;
+            font-size: 0.9rem;
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 700px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 0.8rem;
+            }
+
+            .nav-links { gap: 1.2rem; }
+
+            .page-header h1 { font-size: 1.6rem; }
+
+            .page-header p { font-size: 0.95rem; }
+
+            .form-actions {
+                flex-direction: column;
+            }
+
+            .form-actions .btn {
+                width: 100%;
+            }
+
+            .back-home-wrapper .btn {
+                width: 100%;
+            }
+
+            .fee-row {
+                font-size: 0.92rem;
+            }
+
+            .total-row {
+                font-size: 1.02rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============================= -->
+    <!-- NAVIGATION BAR                -->
+    <!-- ============================= -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">STIC 2026</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="register.html" class="active">Register</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- ============================= -->
+    <!-- PAGE HEADER                   -->
+    <!-- ============================= -->
+    <header class="page-header">
+        <h1>Conference Registration</h1>
+        <p>15th &ndash; 17th November 2026 &nbsp;|&nbsp; University Auditorium</p>
+    </header>
+
+    <!-- ============================= -->
+    <!-- MAIN CONTENT                  -->
+    <!-- ============================= -->
+    <main class="container">
+
+        <form id="registrationForm" method="POST" action="process.php" onsubmit="return validateForm(event)">
+
+            <!-- ============================= -->
+            <!-- PERSONAL INFORMATION          -->
+            <!-- ============================= -->
+            <fieldset class="form-section">
+                <legend>Personal Information</legend>
+
+                <div class="form-group">
+                    <label for="full_name">Full Name <span class="required">*</span></label>
+                    <input type="text" id="full_name" name="full_name" placeholder="e.g. Jane Wanjiku" oninput="clearError('full_name')">
+                    <span class="error-message" id="error_full_name"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="admission_number">Admission/Registration Number <span class="required">*</span></label>
+                    <input type="text" id="admission_number" name="admission_number" placeholder="e.g. 23510" oninput="clearError('admission_number')">
+                    <span class="error-message" id="error_admission_number"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email Address <span class="required">*</span></label>
+                    <input type="email" id="email" name="email" placeholder="e.g. jane@university.ac.ke" oninput="clearError('email')">
+                    <span class="error-message" id="error_email"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone Number (10 digits) <span class="required">*</span></label>
+                    <input type="text" id="phone" name="phone" placeholder="e.g. 0712345678" maxlength="10" oninput="clearError('phone')">
+                    <span class="error-message" id="error_phone"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="year">Year of Study <span class="required">*</span></label>
+                    <select id="year" name="year" onchange="clearError('year')">
+                        <option value="">-- Select Year --</option>
+                        <option value="Year 1">Year 1</option>
+                        <option value="Year 2">Year 2</option>
+                        <option value="Year 3">Year 3</option>
+                        <option value="Year 4">Year 4</option>
+                    </select>
+                    <span class="error-message" id="error_year"></span>
+                </div>
+            </fieldset>
+
+            <!-- ============================= -->
+            <!-- PARTICIPATION CATEGORY        -->
+            <!-- ============================= -->
+            <fieldset class="form-section">
+                <legend>Participation Category</legend>
+
+                <div class="form-group">
+                    <label for="category">Select Category <span class="required">*</span></label>
+                    <select id="category" name="category" onchange="showWorkshop(); clearError('category')">
+                        <option value="">-- Select Participation Category --</option>
+                        <option value="Conference Only">Conference Only</option>
+                        <option value="Workshop Participant">Workshop Participant</option>
+                    </select>
+                    <span class="error-message" id="error_category"></span>
+                </div>
+
+                <!-- Package message -->
+                <div id="packageMessage" class="package-message" style="display: none;"></div>
+            </fieldset>
+
+            <!-- ============================= -->
+            <!-- CONFERENCE DAYS               -->
+            <!-- ============================= -->
+            <fieldset class="form-section">
+                <legend>Conference Days</legend>
+
+                <div class="form-group">
+                    <label for="days">Number of Conference Days <span class="required">*</span></label>
+                    <select id="days" name="days" onchange="calculateFee(); clearError('days')">
+                        <option value="">-- Select Days --</option>
+                        <option value="1">1 Day</option>
+                        <option value="2">2 Days</option>
+                        <option value="3">3 Days</option>
+                    </select>
+                    <span class="error-message" id="error_days"></span>
+                    <small class="hint">A 10% discount applies automatically when 3 days are selected.</small>
+                </div>
+            </fieldset>
+
+            <!-- ============================= -->
+            <!-- WORKSHOP (hidden by default)  -->
+            <!-- ============================= -->
+            <fieldset class="form-section" id="workshopSection" style="display: none;">
+                <legend>Workshop Selection</legend>
+
+                <div class="form-group">
+                    <label for="workshop">Choose Workshop <span class="required">*</span></label>
+                    <select id="workshop" name="workshop" onchange="calculateFee(); clearError('workshop')">
+                        <option value="">-- Select Workshop --</option>
+                        <option value="Web Development">Web Development</option>
+                        <option value="Artificial Intelligence">Artificial Intelligence</option>
+                        <option value="Cybersecurity">Cybersecurity</option>
+                        <option value="Mobile Application Development">Mobile Application Development</option>
+                    </select>
+                    <span class="error-message" id="error_workshop"></span>
+                    <small class="hint">Workshop fee: KSh 750</small>
+                </div>
+            </fieldset>
+
+            <!-- ============================= -->
+            <!-- MEAL OPTION                   -->
+            <!-- ============================= -->
+            <fieldset class="form-section">
+                <legend>Meal Option</legend>
+
+                <div class="form-group">
+                    <label for="meal">Select Meal Option <span class="required">*</span></label>
+                    <select id="meal" name="meal" onchange="calculateFee(); clearError('meal')">
+                        <option value="">-- Select Meal --</option>
+                        <option value="No Lunch">No Lunch</option>
+                        <option value="Lunch">Lunch (KSh 300 per day)</option>
+                    </select>
+                    <span class="error-message" id="error_meal"></span>
+                </div>
+            </fieldset>
+
+            <!-- ============================= -->
+            <!-- FEE SUMMARY                   -->
+            <!-- ============================= -->
+            <div class="fee-summary" id="feeSummary">
+                <h3>Fee Summary</h3>
+
+                <div class="fee-row">
+                    <span>Registration Fee:</span>
+                    <span id="regFee">KSh 1,000</span>
+                </div>
+
+                <div class="fee-row">
+                    <span>Attendance Fee:</span>
+                    <span id="attendanceFee">KSh 0</span>
+                </div>
+
+                <div class="fee-row">
+                    <span>Workshop Fee:</span>
+                    <span id="workshopFee">KSh 0</span>
+                </div>
+
+                <div class="fee-row">
+                    <span>Meal Fee:</span>
+                    <span id="mealFee">KSh 0</span>
+                </div>
+
+                <div class="fee-row subtotal-row">
+                    <span>Subtotal:</span>
+                    <span id="subtotal">KSh 1,000</span>
+                </div>
+
+                <div class="fee-row discount-row">
+                    <span>Discount (10% for 3 days):</span>
+                    <span id="discountAmount">KSh 0</span>
+                </div>
+
+                <div class="fee-row total-row">
+                    <span>TOTAL AMOUNT PAYABLE:</span>
+                    <span id="totalAmount">KSh 1,000</span>
+                </div>
+            </div>
+
+            <!-- ============================= -->
+            <!-- FORM ACTIONS                  -->
+            <!-- ============================= -->
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary btn-large">Submit Registration</button>
+                <a href="index.html" class="btn btn-secondary">Cancel</a>
+            </div>
+        </form>
+
+        <!-- ============================= -->
+        <!-- BACK HOME BUTTON (gold theme) -->
+        <!-- ============================= -->
+        <div class="back-home-wrapper">
+            <a href="index.html" class="btn btn-gold btn-large">Back Home</a>
+        </div>
+
+    </main>
+
+    <!-- ============================= -->
+    <!-- FOOTER                        -->
+    <!-- ============================= -->
+    <footer class="footer">
+        <p>&copy; 2026 Student Technology and Innovation Conference. All rights reserved.</p>
+    </footer>
+
+    <!-- ============================= -->
+    <!-- JAVASCRIPT                    -->
+    <!-- ============================= -->
+    <script>
+        /* ============================================================
+           Student Technology and Innovation Conference - Registration
+           Admission Number: 23510
+           Individualization: 10% discount when attendance is exactly 3 days.
+           ============================================================ */
+
+        // Fee constants
+        var REGISTRATION_FEE = 1000;
+        var ATTENDANCE_RATE = 500;   // per day
+        var WORKSHOP_FEE = 750;
+        var MEAL_RATE = 300;         // per day
+
+        /**
+         * Show or hide workshop section depending on category.
+         */
+        function showWorkshop() {
+            var category = document.getElementById("category").value;
+            var workshopSection = document.getElementById("workshopSection");
+            var workshopSelect = document.getElementById("workshop");
+            var packageMessage = document.getElementById("packageMessage");
+
+            if (category === "Workshop Participant") {
+                workshopSection.style.display = "block";
+                workshopSelect.disabled = false;
+                packageMessage.style.display = "block";
+                packageMessage.textContent = "You have selected the Workshop Participant package.";
+            } else if (category === "Conference Only") {
+                workshopSection.style.display = "none";
+                workshopSelect.disabled = true;
+                workshopSelect.value = "";
+                packageMessage.style.display = "block";
+                packageMessage.textContent = "You have selected the Conference Only package.";
+            } else {
+                workshopSection.style.display = "none";
+                workshopSelect.disabled = true;
+                workshopSelect.value = "";
+                packageMessage.style.display = "none";
+                packageMessage.textContent = "";
+            }
+
+            calculateFee();
+        }
+
+        /**
+         * Calculate all fees and update the summary.
+         */
+        function calculateFee() {
+            var days = parseInt(document.getElementById("days").value) || 0;
+            var category = document.getElementById("category").value;
+            var workshop = document.getElementById("workshop").value;
+            var meal = document.getElementById("meal").value;
+
+            var registrationFee = REGISTRATION_FEE;
+            var attendanceFee = days * ATTENDANCE_RATE;
+
+            var workshopFee = 0;
+            if (category === "Workshop Participant" && workshop !== "") {
+                workshopFee = WORKSHOP_FEE;
+            }
+
+            var mealFee = 0;
+            if (meal === "Lunch") {
+                mealFee = days * MEAL_RATE;
+            }
+
+            var subtotal = registrationFee + attendanceFee + workshopFee + mealFee;
+
+            var discount = 0;
+            if (days === 3) {
+                discount = subtotal * 0.10;
+            }
+
+            var total = subtotal - discount;
+
+            document.getElementById("regFee").textContent = "KSh " + formatNumber(registrationFee);
+            document.getElementById("attendanceFee").textContent = "KSh " + formatNumber(attendanceFee);
+            document.getElementById("workshopFee").textContent = "KSh " + formatNumber(workshopFee);
+            document.getElementById("mealFee").textContent = "KSh " + formatNumber(mealFee);
+            document.getElementById("subtotal").textContent = "KSh " + formatNumber(subtotal);
+            document.getElementById("discountAmount").textContent = "KSh " + formatNumber(discount);
+            document.getElementById("totalAmount").textContent = "KSh " + formatNumber(total);
+        }
+
+        function formatNumber(num) {
+            return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+
+        function validateForm(event) {
+            event.preventDefault();
+            clearAllErrors();
+            var isValid = true;
+
+            var fullName = document.getElementById("full_name").value.trim();
+            if (fullName === "") {
+                showError("full_name", "Full name is required.");
+                isValid = false;
+            }
+
+            var admission = document.getElementById("admission_number").value.trim();
+            if (admission === "") {
+                showError("admission_number", "Admission number is required.");
+                isValid = false;
+            }
+
+            var email = document.getElementById("email").value.trim();
+            if (email === "") {
+                showError("email", "Email address is required.");
+                isValid = false;
+            } else if (!isValidEmail(email)) {
+                showError("email", "Please enter a valid email address.");
+                isValid = false;
+            }
+
+            var phone = document.getElementById("phone").value.trim();
+            if (phone === "") {
+                showError("phone", "Phone number is required.");
+                isValid = false;
+            } else if (!/^\d{10}$/.test(phone)) {
+                showError("phone", "Phone number must be exactly 10 digits.");
+                isValid = false;
+            }
+
+            var year = document.getElementById("year").value;
+            if (year === "") {
+                showError("year", "Please select your year of study.");
+                isValid = false;
+            }
+
+            var category = document.getElementById("category").value;
+            if (category === "") {
+                showError("category", "Please select a participation category.");
+                isValid = false;
+            }
+
+            var days = document.getElementById("days").value;
+            if (days === "") {
+                showError("days", "Please select the number of conference days.");
+                isValid = false;
+            } else {
+                var daysNum = parseInt(days);
+                if (isNaN(daysNum) || daysNum < 1 || daysNum > 3) {
+                    showError("days", "Number of days must be between 1 and 3.");
+                    isValid = false;
+                }
+            }
+
+            if (category === "Workshop Participant") {
+                var workshop = document.getElementById("workshop").value;
+                if (workshop === "") {
+                    showError("workshop", "Please select a workshop.");
+                    isValid = false;
+                }
+            }
+
+            var meal = document.getElementById("meal").value;
+            if (meal === "") {
+                showError("meal", "Please select a meal option.");
+                isValid = false;
+            }
+
+            if (isValid) {
+                document.getElementById("registrationForm").submit();
+            }
+
+            return false;
+        }
+
+        function isValidEmail(email) {
+            var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+
+        function showError(fieldId, message) {
+            var errorSpan = document.getElementById("error_" + fieldId);
+            if (errorSpan) {
+                errorSpan.textContent = message;
+            }
+        }
+
+        function clearError(fieldId) {
+            var errorSpan = document.getElementById("error_" + fieldId);
+            if (errorSpan) {
+                errorSpan.textContent = "";
+            }
+        }
+
+        function clearAllErrors() {
+            var errorSpans = document.querySelectorAll(".error-message");
+            for (var i = 0; i < errorSpans.length; i++) {
+                errorSpans[i].textContent = "";
+            }
+        }
+
+        window.onload = function () {
+            var category = document.getElementById("category").value;
+            if (category !== "Workshop Participant") {
+                document.getElementById("workshopSection").style.display = "none";
+                document.getElementById("workshop").disabled = true;
+            }
+
+            showWorkshop();
+            calculateFee();
+        };
+    </script>
+
+</body>
+</html>

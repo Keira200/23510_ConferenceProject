@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Technology and Innovation Conference</title>
+    <style>
+        /* ========== RESET & BASE ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f6f9;
+            color: #1e2a3a;
+            line-height: 1.6;
+        }
+
+        /* ========== NAVBAR ========== */
+        .navbar {
+            background-color: #0a2540;
+            padding: 1rem 0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 10;
+        }
+
+        .nav-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-brand {
+            color: #c9a227;
+            font-size: 1.4rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 500;
+            padding-bottom: 4px;
+            border-bottom: 2px solid transparent;
+            transition: border-color 0.2s, color 0.2s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            border-bottom-color: #c9a227;
+            color: #c9a227;
+        }
+
+        /* ========== HERO WITH ANIMATED BACKGROUND ========== */
+        .hero {
+            position: relative;
+            overflow: hidden;
+            color: #ffffff;
+            padding: 7rem 1.5rem;
+            text-align: center;
+            background-color: #0a2540;
+        }
+
+        /* Animated background layer (African tech / students) */
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: -5%;
+            left: -5%;
+            width: 110%;
+            height: 110%;
+            background-image: url('https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            z-index: 0;
+            animation: heroZoomPan 22s ease-in-out infinite alternate;
+        }
+
+        /* Dark blue overlay for readability */
+        .hero::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                135deg,
+                rgba(10, 37, 64, 0.85) 0%,
+                rgba(26, 58, 92, 0.78) 50%,
+                rgba(10, 37, 64, 0.88) 100%
+            );
+            z-index: 1;
+        }
+
+        @keyframes heroZoomPan {
+            0% { transform: scale(1) translate(0, 0); }
+            50% { transform: scale(1.12) translate(-2%, -1%); }
+            100% { transform: scale(1.08) translate(2%, 1%); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            margin: 0 auto;
+            animation: fadeInUp 1.2s ease-out both;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(25px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero h1 {
+            font-size: 2.6rem;
+            margin-bottom: 0.6rem;
+            color: #ffffff;
+            line-height: 1.25;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero .theme {
+            font-size: 1.15rem;
+            color: #f0c75e;
+            font-weight: 600;
+            margin-bottom: 1.2rem;
+            text-shadow: 0 1px 6px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero .description {
+            font-size: 1.08rem;
+            margin-bottom: 2rem;
+            opacity: 0.97;
+            text-shadow: 0 1px 6px rgba(0, 0, 0, 0.45);
+        }
+
+        /* ========== HERO INFO BAR ========== */
+        .hero-info-bar {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0;
+            margin-bottom: 2.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: 10px;
+            overflow: hidden;
+            backdrop-filter: blur(5px);
+        }
+
+        .hero-info-item {
+            flex: 1 1 200px;
+            padding: 1rem 1.5rem;
+            text-align: center;
+            border-right: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .hero-info-item:last-child {
+            border-right: none;
+        }
+
+        .hero-info-item .info-label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: #f0c75e;
+            margin-bottom: 0.35rem;
+        }
+
+        .hero-info-item .info-value {
+            display: block;
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: #ffffff;
+            text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+        }
+
+        .hero-info-item.deadline {
+            background: rgba(201, 162, 39, 0.18);
+        }
+
+        .hero-info-item.deadline .info-value {
+            color: #f0c75e;
+        }
+
+        /* ========== BUTTONS ========== */
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.9rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.1s, box-shadow 0.2s;
+            text-align: center;
+        }
+
+        .btn:active { transform: scale(0.98); }
+
+        .btn-primary {
+            background-color: #c9a227;
+            color: #0a2540;
+            box-shadow: 0 4px 14px rgba(201, 162, 39, 0.45);
+        }
+
+        .btn-primary:hover {
+            background-color: #b8911f;
+            box-shadow: 0 6px 20px rgba(201, 162, 39, 0.6);
+        }
+
+        .btn-large {
+            padding: 0.95rem 2.6rem;
+            font-size: 1.1rem;
+        }
+
+        /* ========== CONTAINER ========== */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 2.5rem 1.5rem;
+        }
+
+        /* ========== INFO SECTION ========== */
+        .info-section h2 {
+            color: #0a2540;
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+
+        .info-section > p {
+            margin-bottom: 1rem;
+            font-size: 1rem;
+            color: #2d3748;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .info-card {
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+            transition: box-shadow 0.2s, transform 0.2s;
+        }
+
+        .info-card:hover {
+            box-shadow: 0 6px 16px rgba(10, 37, 64, 0.1);
+            transform: translateY(-3px);
+        }
+
+        .info-card h3 {
+            color: #0a2540;
+            margin-bottom: 0.5rem;
+            font-size: 1.15rem;
+        }
+
+        .info-card p {
+            color: #334155;
+            font-size: 0.95rem;
+        }
+
+        /* ========== CONTACT SECTION ========== */
+        .contact-section {
+            margin-top: 3rem;
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .contact-section h2 {
+            color: #0a2540;
+            margin-bottom: 0.5rem;
+            font-size: 1.8rem;
+        }
+
+        .contact-section > p {
+            margin-bottom: 1.8rem;
+            color: #475569;
+            font-size: 1rem;
+        }
+
+        .contact-info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .contact-item {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 1.2rem;
+        }
+
+        .contact-item .label {
+            display: block;
+            font-weight: 700;
+            color: #0a2540;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.3rem;
+        }
+
+        .contact-item .value {
+            color: #334155;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .contact-item .value a {
+            color: #1a3a5c;
+            text-decoration: underline;
+        }
+
+        .contact-item .value a:hover {
+            color: #c9a227;
+        }
+
+        /* ========== FOOTER ========== */
+        .footer {
+            background: #0a2540;
+            color: #ffffff;
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 3rem;
+            font-size: 0.9rem;
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 700px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 0.8rem;
+            }
+
+            .nav-links { gap: 1.2rem; }
+
+            .hero { padding: 4.5rem 1.2rem; }
+
+            .hero h1 { font-size: 1.8rem; }
+
+            .hero .theme { font-size: 1rem; }
+
+            .hero-info-bar {
+                flex-direction: column;
+            }
+
+            .hero-info-item {
+                border-right: none;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            }
+
+            .hero-info-item:last-child {
+                border-bottom: none;
+            }
+
+            .info-section h2 { font-size: 1.5rem; }
+
+            .contact-section { padding: 1.5rem; }
+
+            .contact-section h2 { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVIGATION BAR -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">STIC 2026</div>
+            <ul class="nav-links">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="register.html">Register</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <header class="hero">
+        <div class="hero-content">
+            <h1>Student Technology and Innovation Conference</h1>
+            <p class="theme">Theme: Technology, Innovation and the Future of Students</p>
+            <p class="description">
+                Join students, innovators, developers and technology enthusiasts for a
+                three-day conference focused on technology, innovation, creativity and
+                emerging digital solutions.
+            </p>
+
+            <div class="hero-info-bar">
+                <div class="hero-info-item">
+                    <span class="info-label">Date</span>
+                    <span class="info-value">15th &ndash; 17th November 2026</span>
+                </div>
+                <div class="hero-info-item">
+                    <span class="info-label">Venue</span>
+                    <span class="info-value">University Auditorium</span>
+                </div>
+                <div class="hero-info-item deadline">
+                    <span class="info-label">Registration Deadline</span>
+                    <span class="info-value">10th November 2026</span>
+                </div>
+            </div>
+
+            <a href="register.html" class="btn btn-primary btn-large">Register Now</a>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="container">
+
+        <section class="info-section">
+            <h2>About the Conference</h2>
+            <p>
+                The Student Technology and Innovation Conference brings together the
+                brightest minds in our university to explore the latest trends in
+                technology. This year's theme focuses on how innovation shapes the
+                future of students and the digital landscape. The conference runs for
+                three days and features keynotes, workshops and networking sessions.
+            </p>
+
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3>Keynote Sessions</h3>
+                    <p>
+                        Learn from industry experts and academic leaders about emerging
+                        technologies and their real-world applications.
+                    </p>
+                </div>
+                <div class="info-card">
+                    <h3>Hands-on Workshops</h3>
+                    <p>
+                        Participate in practical sessions covering Web Development,
+                        Artificial Intelligence, Cybersecurity and Mobile Application
+                        Development.
+                    </p>
+                </div>
+                <div class="info-card">
+                    <h3>Networking</h3>
+                    <p>
+                        Connect with fellow students, developers, innovators and
+                        technology enthusiasts from across the university.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="info-section" style="margin-top: 2.5rem;">
+            <h2>Conference Highlights</h2>
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3>Three-Day Conference</h3>
+                    <p>
+                        Attend for 1, 2 or 3 days. A 10% discount is applied when you
+                        register for the full 3-day attendance.
+                    </p>
+                </div>
+                <div class="info-card">
+                    <h3>Workshop Track</h3>
+                    <p>
+                        Choose the Workshop Participant package to join a specialised
+                        workshop of your choice for an additional fee of KSh 750.
+                    </p>
+                </div>
+                <div class="info-card">
+                    <h3>Meal Options</h3>
+                    <p>
+                        Lunch is available at KSh 300 per day. You may also choose the
+                        No Lunch option at no additional cost.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="contact-section" id="contact">
+            <h2>Contact Us for More Information</h2>
+            <p>
+                If you have any questions about the conference, registration, workshops
+                or payment, please reach out to the organising committee using the
+                details below.
+            </p>
+
+            <div class="contact-info-grid">
+                <div class="contact-item">
+                    <span class="label">Email</span>
+                    <span class="value">
+                        <a href="mailto:conference@university.ac.ke">conference@university.ac.ke</a>
+                    </span>
+                </div>
+                <div class="contact-item">
+                    <span class="label">Phone</span>
+                    <span class="value">+254 700 123 456</span>
+                </div>
+                <div class="contact-item">
+                    <span class="label">Office Location</span>
+                    <span class="value">Room 204, School of Computing, Main Campus</span>
+                </div>
+                <div class="contact-item">
+                    <span class="label">Office Hours</span>
+                    <span class="value">Monday &ndash; Friday, 8:00 AM &ndash; 5:00 PM</span>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2026 Student Technology and Innovation Conference. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
